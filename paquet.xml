@@ -20,6 +20,9 @@
 	<auteur>Rainer Müller</auteur>
 
 	<licence>GNU/GPL v3</licence>
+	
+	<necessite nom="pays" compatibilite="[3.2.0;]" />
+	<necessite nom="cextras" compatibilite="[3.11.6;]" />
 
 	<!--
 		Exemple de commandes
