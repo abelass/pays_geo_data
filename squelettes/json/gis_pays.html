@@ -1,0 +1,14 @@
+		<BOUCLE_art(PAYS){id_auteur ?}{recherche ?}{0, #ENV{limit}}{","}>
+		[(#CHEMIN{countries/#CODE}|oui)
+			[(#SET{geometry,#INCLURE{fond=countries/#CODE}})]
+		]
+
+		{"type": "Feature",
+		["geometry": (#GET{geometry}|sinon{{"type": "Point", "coordinates": \[#LON, #LAT\]}}),]
+		"id":"#ID_GIS",
+		"properties": {
+			"title":[(#URL_ARTICLE|lien_ou_expose{[(#TITRE_GIS*|sinon{#TITRE*}|extraire_multi|supprimer_numero)]}|json_encode)],
+			"description":[(#DESCRIPTIF_GIS|sinon{#DESCRIPTIF}|json_encode)][
+			(#LOGO_GIS|gis_icon_properties)][,
+			"styles": (#GEOMETRY_STYLES|appliquer_filtre{geometry_styles_to_json})]
+		}}</BOUCLE_art>
