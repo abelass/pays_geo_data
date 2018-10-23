@@ -14,7 +14,7 @@ foreach($polygones['features'] AS $feature){
 		]
 	];
 
-	$fp = fopen("../data/countries/$code_iso_a2.geojson", 'w') or die("Unable to open file!");
+	$fp = fopen("../data/countries/$code_iso_a2.html", 'w') or die("Unable to open file!");
 	fwrite($fp, json_encode($country, JSON_UNESCAPED_UNICODE));
 	fclose($fp);
 	print "$fp </div>";
