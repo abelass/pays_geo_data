@@ -44,7 +44,10 @@ function peupler_pays_geo() {
 
 	// Actualiser les pays avec les points et polygons.
 	foreach($polygons_medium['features'] AS $values) {
-		$code_iso_a2 = $values['properties']['iso_a2'];
+		$code_iso_a2 = ($values['properties']['iso_a2'] != '-99') ?
+			$values['properties']['iso_a2'] :
+			$values['properties']['fips_10_'];
+
 		list($lat, $lon) = $points_code[$code_iso_a2];
 
 		$wkt = FALSE;

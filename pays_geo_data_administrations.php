@@ -8,11 +8,9 @@
  * @licence    GNU/GPL v3
  * @package    SPIP\Pays_geo_data\Installation
  */
-
 if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
-
 
 /**
  * Fonction d'installation et de mise à jour du plugin Donnés géométriques pays.
@@ -22,58 +20,63 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * - créer la structure SQL,
  * - insérer du pre-contenu,
  * - installer des valeurs de configuration,
- * - mettre à jour la structure SQL 
+ * - mettre à jour la structure SQL
  *
  * @param string $nom_meta_base_version
- *     Nom de la meta informant de la version du schéma de données du plugin installé dans SPIP
+ *        	Nom de la meta informant de la version du schéma de données du plugin installé dans SPIP
  * @param string $version_cible
- *     Version du schéma de données dans ce plugin (déclaré dans paquet.xml)
+ *        	Version du schéma de données dans ce plugin (déclaré dans paquet.xml)
  * @return void
-**/
+ */
 function pays_geo_data_upgrade($nom_meta_base_version, $version_cible) {
-	$maj = array();
-	# quelques exemples
-	# (que vous pouvez supprimer !)
-	# 
-	# $maj['create'] = array(array('creer_base'));
-	#
-	# include_spip('inc/config')
-	# $maj['create'] = array(
-	#	array('maj_tables', array('spip_xx', 'spip_xx_liens')),
-	#	array('ecrire_config', 'pays_geo_data', array('exemple' => "Texte de l'exemple"))
-	#);
-	#
-	# $maj['1.1.0']  = array(array('sql_alter','TABLE spip_xx RENAME TO spip_yy'));
-	# $maj['1.2.0']  = array(array('sql_alter','TABLE spip_xx DROP COLUMN id_auteur'));
-	# $maj['1.3.0']  = array(
-	#	array('sql_alter','TABLE spip_xx CHANGE numero numero int(11) default 0 NOT NULL'),
-	#	array('sql_alter','TABLE spip_xx CHANGE texte petit_texte mediumtext NOT NULL default \'\''),
-	# );
-	# ...
-
 	include_spip('base/upgrade');
+	include_spip('base/peupler_pays_geo');
+
+	$maj = array();
+
+	$maj['create'] = array(
+		array(
+			'maj_tables',
+			array(
+				'spip_pays',
+			)
+		),
+		array(
+			'sql_alter',
+			'TABLE spip_pays ADD geo GEOMETRY AFTER lon'
+		),
+		array(
+			'peupler_pays_geo'
+		),
+		array(
+			'sql_alter',
+			'TABLE spip_pays CHANGE COLUMN geo geo GEOMETRY NOT NULL'
+		),
+		array(
+			'sql_alter',
+			'TABLE spip_pays ADD SPATIAL INDEX (geo)'
+		)
+	);
+
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
 
-
 /**
  * Fonction de désinstallation du plugin Donnés géométriques pays.
- * 
+ *
  * Vous devez :
  *
  * - nettoyer toutes les données ajoutées par le plugin et son utilisation
- * - supprimer les tables et les champs créés par le plugin. 
+ * - supprimer les tables et les champs créés par le plugin.
  *
  * @param string $nom_meta_base_version
- *     Nom de la meta informant de la version du schéma de données du plugin installé dans SPIP
+ *        	Nom de la meta informant de la version du schéma de données du plugin installé dans SPIP
  * @return void
-**/
+ */
 function pays_geo_data_vider_tables($nom_meta_base_version) {
-	# quelques exemples
-	# (que vous pouvez supprimer !)
-	# sql_drop_table('spip_xx');
-	# sql_drop_table('spip_xx_liens');
-
-
+	// quelques exemples
+	// (que vous pouvez supprimer !)
+	// sql_drop_table('spip_xx');
+	// sql_drop_table('spip_xx_liens');
 	effacer_meta($nom_meta_base_version);
 }
