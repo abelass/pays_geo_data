@@ -1,0 +1,35 @@
+<BOUCLE_articles(ARTICLES)
+		{id_article ?}
+		{id_rubrique ?}
+		{id_mot ?}
+		{id_groupe ?}
+		{id_auteur ?}
+		{recherche ?}>#SET{titre,#TITRE}#SET{id_article,#ID_ARTICLE}#SET{descriptif,#DESCRIPTIF}
+	<BOUCLE_liens(pays_liens){id_objet=#ID_ARTICLE}{objet=article}>
+		<BOUCLE_pays(PAYS) {id_pays}{","}>[
+		(#GEO|is_null|?{
+			[(#CHEMIN{pays/#CODE.html}|oui)
+				[(#SET{
+					geometry,
+					#INCLURE{
+						fond=pays/#CODE}
+						|json_decode{TRUE}
+						|table_valeur{features}
+						|table_valeur{0}
+						|table_valeur{geometry}
+						|json_encode
+					})]
+			]
+		,
+			#SET{geometry,#GEOMETRY_PAYS|wkt_to_json}
+		})]
+		[{"type": "Feature",
+		"geometry": (#GET{geometry}),
+		"id":"#GET{id_article}",
+		"properties": {
+			"title":[(#URL_ARTICLE{#GET{id_article}}|lien_ou_expose{[(#GET{titre}|extraire_multi|supprimer_numero)]}|json_encode)],
+			"description":[(#GET{descriptif}|json_encode)]
+		}}]
+		</BOUCLE_pays>
+	</BOUCLE_liens>
+</BOUCLE_articles>

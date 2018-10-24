@@ -25,6 +25,7 @@
 	<necessite nom="gisgeom" compatibilite="[1.11.5;]" />
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/pays_geo_data.php" />
+	<pipeline nom="pre_boucle" inclure="pays_geo_data_pipelines.php" />
 	<chemin path="squelettes" />
 	<chemin path="" />
 </paquet>
