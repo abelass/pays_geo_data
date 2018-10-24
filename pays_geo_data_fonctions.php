@@ -13,15 +13,13 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
+/**
+ * Balise GEOMETRY_PAYS pour afficher le champ geo de la table spip_pays au format WKT
+ *
+ * @param $p
+ * @return mixed
+ */
 function balise_geometry_pays_dist($p) {
 	$p->code = '$Pile[$SP][\'geometry_pays\']';
 	return $p;
 }
-
-/*
- * Un fichier de fonctions permet de définir des éléments
- * systématiquement chargés lors du calcul des squelettes.
- *
- * Il peut par exemple définir des filtres, critères, balises, …
- *
- */

@@ -13,7 +13,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
-
 /**
  * Surcharger les boucles PAYS et celles qui comportent le critère gis
  * pour permettre d'accéder à la valeur du champ geo au format WKT (voir balise #GEOMETRY_PAYS)
