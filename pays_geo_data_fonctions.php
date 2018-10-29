@@ -19,7 +19,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param $p
  * @return mixed
  */
-function balise_geometry_pays_dist($p) {
+/*function balise_geometry_pays_dist($p) {
 	$p->code = '$Pile[$SP][\'geometry_pays\']';
 	return $p;
-}
+}*/
