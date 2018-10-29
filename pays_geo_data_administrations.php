@@ -34,7 +34,7 @@ function pays_geo_data_upgrade($nom_meta_base_version, $version_cible) {
 
 	$maj = array();
 
-	$maj['create'] = array(
+	/*$maj['create'] = array(
 		array(
 			'maj_tables',
 			array(
@@ -56,7 +56,7 @@ function pays_geo_data_upgrade($nom_meta_base_version, $version_cible) {
 			'sql_alter',
 			'TABLE spip_pays ADD SPATIAL INDEX (geo)'
 		)
-	);
+	);*/
 
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
