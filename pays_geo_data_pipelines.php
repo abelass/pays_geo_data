@@ -20,9 +20,9 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param $boucle
  * @return mixed
  */
-function pays_geo_data_pre_boucle($boucle) {
+/*function pays_geo_data_pre_boucle($boucle) {
 	if ($boucle->type_requete == 'pays' or in_array('pays', $boucle->jointures)) {
 		$boucle->select[]= 'AsText(pays.geo) AS geometry_pays';
 	}
 	return $boucle;
-}
+}*/
